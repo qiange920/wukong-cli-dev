@@ -5,7 +5,10 @@
   "author": "钱格 <webqiange@163.com>",
   "homepage": "",
   "license": "ISC",
-  "main": "lib/utils.js",
+  "main": "lib/index.js",
+  "bin": {
+    "wukong-cli-dev": "bin/index.js"
+  },
   "directories": {
     "lib": "lib",
     "test": "__tests__"

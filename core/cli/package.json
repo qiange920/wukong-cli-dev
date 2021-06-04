@@ -22,6 +22,7 @@
   "dependencies": {
     "@wukong-cli-dev/log": "file:../../utils/log",
     "@wukong-cli-dev/utils": "file:../../utils/utils",
+    "@wukong-cli-dev/get-npm-info": "file:../../utils/get-npm-info",
     "colors": "^1.4.0",
     "dotenv": "^10.0.0",
     "import-local": "^3.0.2",

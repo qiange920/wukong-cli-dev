@@ -11,8 +11,8 @@ const colors = require("colors/safe");
 const userHome = require("user-home");
 const pathExists = require("path-exists").sync;
 
-let args, config;
-function core() {
+let args;
+async function core() {
   try {
     checkPkgVersion();
     checkNodeVersion();
@@ -21,8 +21,20 @@ function core() {
     checkInputArgs();
     // log.verbose("debug", "test debug log");
     checkEnv();
+    await checkGlobalUpdate();
   } catch (e) {
     log.error(e.message);
+  }
+}
+
+async function checkGlobalUpdate(params) {
+  const currentVersion = pkg.version;
+  const npmName = pkg.name;
+  const { getNpmSemverVersion } = require("@wukong-cli-dev/get-npm-info");
+  const lastVersions = await getNpmSemverVersion(currentVersion, npmName);
+  if (lastVersions && semver.gt(lastVersions, currentVersion)) {
+    log.warn("更新提示", colors.yellow(`请手动更新 ${npmName}, 当前版本${currentVersion}, 最新版本${lastVersions}
+更新命令： npm install -g ${npmName}`))
   }
 }
 
@@ -43,7 +55,7 @@ function createDefaultConfig() {
     home: userHome,
   };
   if (process.env.CLI_HOME) {
-    cliConfig["cliHome"] = path.join(userHome, process.env.CLI_HOME)
+    cliConfig["cliHome"] = path.join(userHome, process.env.CLI_HOME);
   } else {
     cliConfig["cliHome"] = path.join(userHome, constant.DEFAULT_CLI_HOME);
   }

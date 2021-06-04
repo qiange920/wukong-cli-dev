@@ -3,5 +3,5 @@ const DEFAULT_CLI_HOME = ".wukong-cli";
 
 module.exports = {
   LOWEST_NODE_VERSION,
-  DEFAULT_CLI_HOME
-}
+  DEFAULT_CLI_HOME,
+};
